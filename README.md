@@ -6,6 +6,14 @@ Yerel bir metin/PDF dokümanı üzerinde soru-cevap yapan, **tamamen kendi bilgi
 
 ## Mimari Akış
 
+![Local RAG mimarisi](docs/mimari.png)
+
+Şema iki aşamadan oluşur:
+- **Indexing (hazırlık):** Doküman bir kez işlenip vektör veritabanına kaydedilir. `chroma_db` klasörü varsa bu aşama atlanır.
+- **Query (sorgu):** Her soruda tekrar çalışır: soru vektöre çevrilir, en yakın parçalar bulunur (**R**), soruyla birlikte prompt'a eklenir (**A**) ve dil modeli cevabı üretir (**G**).
+
+> Şemanın düzenlenebilir hali: [`docs/mimari.excalidraw`](docs/mimari.excalidraw) ([excalidraw.com](https://excalidraw.com) üzerinde açılabilir).
+
 ```
 load → chunk → embed → ChromaDB → retrieve → generate
 ```
@@ -45,6 +53,7 @@ local-rag-project/
 ├── main.py           # Uygulamanın tüm kodu
 ├── bilgi.txt         # Örnek doküman (sorgulanan metin)
 ├── requirements.txt  # Python bağımlılıkları
+├── docs/             # Mimari şeması (PNG + düzenlenebilir .excalidraw)
 ├── .gitignore
 └── README.md
 ```
